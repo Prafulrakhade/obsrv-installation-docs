@@ -248,10 +248,10 @@ druid_s3_endpoint_url: "http://10.43.209.124:9000/"
 druid_s3_endpoint_signingRegion: "us-east-2"
 ```
 * Add `druid_indexer_logs_s3Bucket:"obsrv"
-`, `druid_indexer_logs_directory:"backups/druid/druid-task-logs"`,  lines as given below
+`, `druid_indexer_logs_directory:"backups/druid/druid-task-logs"`,  lines as given below in values.yaml file.
 
 * Replace `druid_broker_max_heap_size: 512M` as `druid_broker_max_heap_size: 1024M
-  ` and `druid_broker_pod_memory_limit: 750Mi` as `druid_broker_pod_memory_limit: 1300Mi`
+  ` and `druid_broker_pod_memory_limit: 750Mi` as `druid_broker_pod_memory_limit: 1300Mi` in values.yaml file.
 ```bash
 # Indexing service logs
 # For local disk (only viable in a cluster_type if this is a network mount):
