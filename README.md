@@ -681,3 +681,90 @@ helm repo update
 ```bash
 helm upgrade --install --atomic superset superset/superset-helm-chart -n superset --create-namespace --debug
 ```
+* Go to the rancher and Import `Gateways` and `VirtualServices`Yaml files in istio, which given below
+* Gateways
+```bash
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  creationTimestamp: "2023-08-16T14:04:04Z"
+  generation: 1
+  managedFields:
+  - apiVersion: networking.istio.io/v1beta1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:spec:
+        .: {}
+        f:selector:
+          .: {}
+          f:istio: {}
+        f:servers: {}
+    manager: agent
+    operation: Update
+    time: "2023-08-16T14:04:04Z"
+  name: superset
+  namespace: superset
+  resourceVersion: "9632248"
+  uid: 0bdead67-4291-41d3-a78d-d9f79328a916
+spec:
+  selector:
+    istio: ingressgateway-internal
+  servers:
+  - hosts:
+    - superset.obsrv.mosip.net
+    port:
+      name: http
+      number: 80
+      protocol: HTTP
+```
+* VirtualServices
+```bash
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  annotations:
+    objectset.rio.cattle.io/applied: H4sIAAAAAAAA/3SRwY6cMAyG38XHCthhBgrkNSrtZTUHk3iWdCBJY7PTFcq7V0mnVS894R99+WwnB2CwrxTZegcKHMnDx7t1741lsb6x/uWjnUmwhQru1hlQ8Gqj7Lh+o/hhNUEFGwkaFAR1ADrnBcV6xzn6+TtpYZImWt9oFFkpS20WdXSj0zR19Xk6TXXXnrAe2xvWA7Wt7vtp7OYWUgUrzrQWHYbQ3PeZoiMhziLtt+AdOQEFm2cboPpv0wV5AQVT21One+z6aTrRhbqzHsbLcBmM7uZ2noYznb/SqHNrhxuBAhN3a+B35ID677864iNzHEjnAd9R6IGfDOoNyg3W/MlC24t1QtHhCtcKFs9SiC8liQRQbwcshIZi2TPSj51YcslUPj/rm48PjIZMHaIXD6qcZEgpVbCh6KVYntUBwUcBNY7jmNK1guh3oUIYYrGuvFHm8jT/rlMXMjJUT8UBbt9min9k6ZquKf0KAAD//0oZDvg6AgAA
+    objectset.rio.cattle.io/id: 4efe0994-2909-410a-81fa-7e11c55984b1
+  creationTimestamp: "2023-08-16T14:05:12Z"
+  generation: 1
+  labels:
+    app.kubernetes.io/component: mosip
+  managedFields:
+  - apiVersion: networking.istio.io/v1beta1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:objectset.rio.cattle.io/applied: {}
+          f:objectset.rio.cattle.io/id: {}
+        f:labels:
+          .: {}
+          f:app.kubernetes.io/component: {}
+      f:spec:
+        .: {}
+        f:gateways: {}
+        f:hosts: {}
+        f:http: {}
+    manager: agent
+    operation: Update
+    time: "2023-08-16T14:05:12Z"
+  name: superset
+  namespace: superset
+  resourceVersion: "9632622"
+  uid: a8cfea5b-5fb6-4aa8-84d9-0db9f65d077b
+spec:
+  gateways:
+  - superset
+  hosts:
+  - '*'
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: superset
+        port:
+          number: 8088 
+```
